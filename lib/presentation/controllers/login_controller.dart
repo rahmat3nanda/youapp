@@ -71,7 +71,12 @@ class LoginController extends GetxController {
         _dio.setToken(token);
         await _tokenDataUseCase.store(token);
         UserModel? data = await _getUserDataUseCase.executeRemote();
-        Get.snackbar("Success Login", "Welcome ${data?.username ?? ""}!");
+        Get.snackbar(
+          "Success Login",
+          "Welcome ${data?.username ?? ""}!",
+          colorText: Colors.white,
+          backgroundColor: Colors.green,
+        );
         isLoading.value = false;
         // TODO: Route to dashboard
       } catch (e) {
