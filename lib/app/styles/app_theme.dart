@@ -35,7 +35,7 @@ class AppTheme {
         ),
         primaryColor: AppColor.primaryLight,
         primaryColorDark: AppColor.primary,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: AppColor.primary,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: ColorScheme.fromSwatch().copyWith(
           secondary: AppColor.accent,

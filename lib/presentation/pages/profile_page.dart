@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:youapp/app/helpers/string_join.dart';
 import 'package:youapp/app/styles/app_color.dart';
+import 'package:youapp/data/models/user_model.dart';
 import 'package:youapp/presentation/controllers/profile_controller.dart';
-import 'package:youapp/presentation/widgets/app_scafold.dart';
 import 'package:youapp/presentation/widgets/loading_overlay.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -14,46 +15,115 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => AppScaffold(
-        appBar: AppBar(
-          title: Text(
-            controller.user.value == null
-                ? ""
-                : "@${controller.user.value?.username ?? ""}",
-            style: const TextStyle(fontSize: 17),
-          ),
-          centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: controller.openMenu,
-              icon: const Icon(Icons.more_horiz),
+      () {
+        UserModel? d = controller.user.value;
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              d == null ? "" : "@${d.username ?? ""}",
+              style: const TextStyle(fontSize: 17),
             ),
-          ],
-        ),
-        body: LoadingOverlay(
-          isLoading: controller.isLoading.value,
-          color: Colors.white.withOpacity(0.4),
-          progressIndicator: SpinKitSpinningLines(
-            color: AppColor.accent,
-            size: 72,
-            lineWidth: 4,
+            centerTitle: true,
+            actions: [
+              IconButton(
+                onPressed: controller.openMenu,
+                icon: const Icon(Icons.more_horiz),
+              ),
+            ],
           ),
-          child: SafeArea(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 6),
-              children: const [
-                Text(
-                  "Register",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 24,
-                  ),
+          body: LoadingOverlay(
+            isLoading: controller.isLoading.value,
+            color: Colors.white.withOpacity(0.4),
+            progressIndicator: SpinKitSpinningLines(
+              color: AppColor.accent,
+              size: 72,
+              lineWidth: 4,
+            ),
+            child: SafeArea(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 28,
+                  horizontal: 6,
                 ),
-                SizedBox(height: 24),
-              ],
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 190,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: AppColor.formField,
+                    ),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          bottom: 16,
+                          left: 12,
+                          child: Text(
+                            d == null ? "" : "@${d.username ?? ""}",
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  _infoView(
+                    title: "About",
+                    value: "Add in your your to help others know you better",
+                  ),
+                  const SizedBox(height: 18),
+                  _infoView(
+                    title: "Interest",
+                    value: d?.interests?.joinOrNull(", ") ??
+                        "Add in your interest to find a better match",
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+        );
+      },
+    );
+  }
+
+  Widget _infoView({
+    required String title,
+    required String value,
+    Function()? onTap,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(
+        vertical: 12,
+        horizontal: 24,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Color.lerp(AppColor.primary, Colors.white, 0.025),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 32),
+          Text(
+            value,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              color: Colors.white.withOpacity(0.5),
+            ),
+          ),
+        ],
       ),
     );
   }
