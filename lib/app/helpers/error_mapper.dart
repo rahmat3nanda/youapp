@@ -47,4 +47,12 @@ class ErrorMapper {
     }
     return response;
   }
+
+  static ResponseModel dioIfNeeded(dynamic e) {
+    if (e is ResponseModel) {
+      return e;
+    }
+
+    return dio(e);
+  }
 }
