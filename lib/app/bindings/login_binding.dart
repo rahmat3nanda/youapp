@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:youapp/app/configs/app_config.dart';
-import 'package:youapp/data/datasources/api_service_dio.dart';
 import 'package:youapp/data/datasources/local/token_local_data_source.dart';
 import 'package:youapp/data/datasources/local/user_local_data_source.dart';
 import 'package:youapp/data/datasources/remote/auth_remote_data_source.dart';
@@ -19,12 +17,6 @@ import 'package:youapp/presentation/controllers/login_controller.dart';
 class LoginBinding extends Bindings {
   @override
   void dependencies() {
-    // API Service
-    Get.lazyPut(
-      () => ApiServiceDio(baseUrl: AppConfig.shared.baseUrlApi),
-      fenix: true,
-    );
-
     // DataSources
     Get.lazyPut<UserLocalDataSource>(() => UserLocalDataSource());
     Get.lazyPut<UserRemoteDataSource>(() => UserRemoteDataSource());
