@@ -16,8 +16,4 @@ class UserLocalDataSource {
 
     return UserModel.fromJson(jsonDecode(s));
   }
-
-  Future<String?> fetchToken() async {
-    return SPData.load<String>("token");
-  }
 }

@@ -29,8 +29,4 @@ class GetUserDataUseCase {
       rethrow;
     }
   }
-
-  Future<String?> executeToken() {
-    return userRepository.fetchToken();
-  }
 }

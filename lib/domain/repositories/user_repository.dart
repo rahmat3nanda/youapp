@@ -6,6 +6,4 @@ abstract class UserRepository {
   Future<UserModel?> fetchFromLocal();
 
   Future<UserModel?> fetchFromRemote();
-
-  Future<String?> fetchToken();
 }
