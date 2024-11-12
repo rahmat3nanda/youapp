@@ -32,10 +32,7 @@ class AuthRemoteDataSource {
         message: response.data["message"],
       );
     } catch (e) {
-      if (e is ResponseModel) {
-        rethrow;
-      }
-      throw ErrorMapper.dio(e);
+      throw ErrorMapper.dioIfNeeded(e);
     }
   }
 

@@ -33,10 +33,10 @@ class LoginController extends GetxController {
         _getUserDataUseCase = getUserDataUseCase;
 
   @override
-  void dispose() {
+  void onClose() {
     emailOrUsernameController.dispose();
     passwordController.dispose();
-    super.dispose();
+    super.onClose();
   }
 
   void toggleObscure() {
@@ -51,10 +51,11 @@ class LoginController extends GetxController {
   }
 
   void navigateRegister() {
-    // Get.to("/register");
+    Get.offNamed("/register");
   }
 
   Future<void> login() async {
+    Get.focusScope?.unfocus();
     if (formKey.currentState?.validate() ?? false) {
       String user = emailOrUsernameController.text.trim();
       String password = passwordController.text;
@@ -75,11 +76,7 @@ class LoginController extends GetxController {
         // TODO: Route to dashboard
       } catch (e) {
         isLoading.value = false;
-        if (e is ResponseModel) {
-          error.value = e;
-          return;
-        }
-        error.value = ErrorMapper.dio(e);
+        error.value = ErrorMapper.dioIfNeeded(e);
       }
     }
   }
