@@ -1,10 +1,10 @@
 import 'package:youapp/data/models/user_model.dart';
 import 'package:youapp/domain/repositories/user_repository.dart';
 
-class GetUserDataUseCase {
+class UserUseCase {
   final UserRepository userRepository;
 
-  GetUserDataUseCase(this.userRepository);
+  UserUseCase(this.userRepository);
 
   Future<UserModel?> execute() async {
     try {

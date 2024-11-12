@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:youapp/data/datasources/api_service_dio.dart';
 import 'package:youapp/data/models/user_model.dart';
-import 'package:youapp/domain/usecases/get_user_usecase.dart';
-import 'package:youapp/domain/usecases/token_data_use_case.dart';
+import 'package:youapp/domain/usecases/user_use_case.dart';
+import 'package:youapp/domain/usecases/token_use_case.dart';
 
 class SplashController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -13,15 +13,15 @@ class SplashController extends GetxController
 
   late AnimationController animationController;
 
-  final GetUserDataUseCase _getUserDataUseCase;
-  final TokenDataUseCase _tokenDataUseCase;
+  final UserUseCase _userUseCase;
+  final TokenUseCase _tokenUseCase;
   final ApiServiceDio _dio = Get.find();
 
   SplashController({
-    required GetUserDataUseCase getUserDataUseCase,
-    required TokenDataUseCase tokenDataUseCase,
-  })  : _tokenDataUseCase = tokenDataUseCase,
-        _getUserDataUseCase = getUserDataUseCase;
+    required UserUseCase userUseCase,
+    required TokenUseCase tokenUseCase,
+  })  : _tokenUseCase = tokenUseCase,
+        _userUseCase = userUseCase;
 
   @override
   void onInit() {
@@ -73,7 +73,7 @@ class SplashController extends GetxController
   Future<void> fetchUserData() async {
     _isLoading.value = true;
     try {
-      _user.value = await _getUserDataUseCase.executeLocal();
+      _user.value = await _userUseCase.executeLocal();
       await _configToken();
     } catch (e) {
       _isLoading.value = false;
@@ -81,7 +81,7 @@ class SplashController extends GetxController
   }
 
   Future<void> _configToken() async {
-    _token.value = await _tokenDataUseCase.fetch();
+    _token.value = await _tokenUseCase.fetch();
     if (_token.value != null) {
       _dio.setToken(_token.value!);
     }

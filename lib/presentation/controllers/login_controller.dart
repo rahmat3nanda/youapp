@@ -5,13 +5,13 @@ import 'package:youapp/data/datasources/api_service_dio.dart';
 import 'package:youapp/data/models/response_model.dart';
 import 'package:youapp/data/models/user_model.dart';
 import 'package:youapp/domain/usecases/auth_use_case.dart';
-import 'package:youapp/domain/usecases/get_user_usecase.dart';
-import 'package:youapp/domain/usecases/token_data_use_case.dart';
+import 'package:youapp/domain/usecases/user_use_case.dart';
+import 'package:youapp/domain/usecases/token_use_case.dart';
 
 class LoginController extends GetxController {
   final AuthUseCase _authUseCase;
-  final GetUserDataUseCase _getUserDataUseCase;
-  final TokenDataUseCase _tokenDataUseCase;
+  final UserUseCase _userUseCase;
+  final TokenUseCase _tokenUseCase;
   final ApiServiceDio _dio = Get.find();
 
   final GlobalKey<FormState> formKey = GlobalKey();
@@ -26,11 +26,11 @@ class LoginController extends GetxController {
 
   LoginController({
     required AuthUseCase authUseCase,
-    required GetUserDataUseCase getUserDataUseCase,
-    required TokenDataUseCase tokenDataUseCase,
+    required UserUseCase userUseCase,
+    required TokenUseCase tokenUseCase,
   })  : _authUseCase = authUseCase,
-        _tokenDataUseCase = tokenDataUseCase,
-        _getUserDataUseCase = getUserDataUseCase;
+        _tokenUseCase = tokenUseCase,
+        _userUseCase = userUseCase;
 
   @override
   void onClose() {
@@ -69,8 +69,8 @@ class LoginController extends GetxController {
         );
 
         _dio.setToken(token);
-        await _tokenDataUseCase.store(token);
-        UserModel? data = await _getUserDataUseCase.executeRemote();
+        await _tokenUseCase.store(token);
+        UserModel? data = await _userUseCase.executeRemote();
         Get.snackbar(
           "Success Login",
           "Welcome ${data?.username ?? ""}!",

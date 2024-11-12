@@ -1,9 +1,9 @@
 import 'package:youapp/domain/repositories/token_repository.dart';
 
-class TokenDataUseCase {
+class TokenUseCase {
   final TokenRepository repository;
 
-  TokenDataUseCase(this.repository);
+  TokenUseCase(this.repository);
 
   Future<String?> fetch() {
     return repository.fetch();

@@ -12,8 +12,8 @@ import 'package:youapp/domain/repositories/auth_repository.dart';
 import 'package:youapp/domain/repositories/token_repository.dart';
 import 'package:youapp/domain/repositories/user_repository.dart';
 import 'package:youapp/domain/usecases/auth_use_case.dart';
-import 'package:youapp/domain/usecases/get_user_usecase.dart';
-import 'package:youapp/domain/usecases/token_data_use_case.dart';
+import 'package:youapp/domain/usecases/user_use_case.dart';
+import 'package:youapp/domain/usecases/token_use_case.dart';
 import 'package:youapp/presentation/controllers/login_controller.dart';
 
 class LoginBinding extends Bindings {
@@ -53,11 +53,11 @@ class LoginBinding extends Bindings {
     );
 
     // Use cases
-    Get.lazyPut<GetUserDataUseCase>(
-      () => GetUserDataUseCase(Get.find<UserRepository>()),
+    Get.lazyPut<UserUseCase>(
+      () => UserUseCase(Get.find<UserRepository>()),
     );
-    Get.lazyPut<TokenDataUseCase>(
-      () => TokenDataUseCase(Get.find<TokenRepository>()),
+    Get.lazyPut<TokenUseCase>(
+      () => TokenUseCase(Get.find<TokenRepository>()),
     );
     Get.lazyPut<AuthUseCase>(
       () => AuthUseCase(Get.find<AuthRepository>()),
@@ -67,8 +67,8 @@ class LoginBinding extends Bindings {
     Get.lazyPut<LoginController>(
       () => LoginController(
         authUseCase: Get.find<AuthUseCase>(),
-        getUserDataUseCase: Get.find<GetUserDataUseCase>(),
-        tokenDataUseCase: Get.find<TokenDataUseCase>(),
+        userUseCase: Get.find<UserUseCase>(),
+        tokenUseCase: Get.find<TokenUseCase>(),
       ),
       fenix: true,
     );
