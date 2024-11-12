@@ -6,4 +6,6 @@ abstract class UserRepository {
   Future<UserModel?> fetchFromLocal();
 
   Future<UserModel?> fetchFromRemote();
+
+  Future<void> destroy();
 }

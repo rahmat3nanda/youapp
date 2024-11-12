@@ -12,4 +12,8 @@ class TokenUseCase {
   Future<void> store(String token) async {
     await repository.store(token);
   }
+
+  Future<void> remove() async {
+    await repository.remove();
+  }
 }

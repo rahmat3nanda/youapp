@@ -6,7 +6,7 @@ class UserUseCase {
 
   UserUseCase(this.userRepository);
 
-  Future<UserModel?> execute() async {
+  Future<UserModel?> fetch() async {
     try {
       return await userRepository.fetch();
     } catch (e) {
@@ -14,7 +14,7 @@ class UserUseCase {
     }
   }
 
-  Future<UserModel?> executeLocal() async {
+  Future<UserModel?> fetchFromLocal() async {
     try {
       return await userRepository.fetchFromLocal();
     } catch (e) {
@@ -22,11 +22,15 @@ class UserUseCase {
     }
   }
 
-  Future<UserModel?> executeRemote() async {
+  Future<UserModel?> fetchFromRemote() async {
     try {
       return await userRepository.fetchFromRemote();
     } catch (e) {
       rethrow;
     }
+  }
+
+  Future<void> destroy() async {
+    await userRepository.destroy();
   }
 }

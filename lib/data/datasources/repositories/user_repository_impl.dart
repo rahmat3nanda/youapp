@@ -42,4 +42,9 @@ class UserRepositoryImpl implements UserRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> destroy() async {
+    await localDataSource.destroy();
+  }
 }

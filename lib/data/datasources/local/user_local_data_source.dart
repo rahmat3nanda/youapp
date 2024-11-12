@@ -16,4 +16,8 @@ class UserLocalDataSource {
 
     return UserModel.fromJson(jsonDecode(s));
   }
+
+  Future<void> destroy() async {
+    await SPData.remove("user");
+  }
 }
