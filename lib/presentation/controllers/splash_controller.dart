@@ -28,26 +28,21 @@ class SplashController extends GetxController
     super.onInit();
     fetchUserData();
 
-    // Initialize animation controller for splash animation
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 2),
     );
 
-    // Start animation and fetch user data
     animationController.forward();
     fetchUserData();
 
-    // Listen for animation completion
     animationController.addStatusListener((status) async {
       if (status == AnimationStatus.completed && !_isLoading.value) {
-        // Delay slightly after animation to ensure readiness
         await Future.delayed(const Duration(milliseconds: 500));
         _navigate();
       }
     });
 
-    // React to changes in `isLoading`
     ever(_isLoading, (bool loading) {
       if (!loading && animationController.isCompleted) {
         _navigate();
@@ -63,7 +58,7 @@ class SplashController extends GetxController
 
   void _navigate() {
     if (_token.value != null && _user.value != null) {
-      // TODO: to dashboard
+      Get.offNamed("/profile");
       return;
     }
 
@@ -73,7 +68,7 @@ class SplashController extends GetxController
   Future<void> fetchUserData() async {
     _isLoading.value = true;
     try {
-      _user.value = await _userUseCase.executeLocal();
+      _user.value = await _userUseCase.fetchFromLocal();
       await _configToken();
     } catch (e) {
       _isLoading.value = false;

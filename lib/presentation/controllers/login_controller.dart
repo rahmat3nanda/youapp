@@ -70,7 +70,7 @@ class LoginController extends GetxController {
 
         _dio.setToken(token);
         await _tokenUseCase.store(token);
-        UserModel? data = await _userUseCase.executeRemote();
+        UserModel? data = await _userUseCase.fetchFromRemote();
         Get.snackbar(
           "Success Login",
           "Welcome ${data?.username ?? ""}!",
@@ -78,7 +78,7 @@ class LoginController extends GetxController {
           backgroundColor: Colors.green,
         );
         isLoading.value = false;
-        // TODO: Route to dashboard
+        Get.offNamed("/profile");
       } catch (e) {
         isLoading.value = false;
         error.value = ErrorMapper.dioIfNeeded(e);
