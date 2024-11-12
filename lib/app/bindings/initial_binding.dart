@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
-import 'package:youapp/app/configs/app_config.dart';
 import 'package:youapp/data/datasources/api_service_dio.dart';
 import 'package:youapp/data/datasources/local/user_local_data_source.dart';
 import 'package:youapp/data/datasources/remote/user_remote_data_source.dart';
 import 'package:youapp/data/datasources/repositories/user_repository_impl.dart';
 import 'package:youapp/domain/repositories/user_repository.dart';
 import 'package:youapp/domain/usecases/get_user_usecase.dart';
+import 'package:youapp/app/configs/app_config.dart';
+import 'package:youapp/presentation/controllers/splash_controller.dart';
 
 class InitialBinding extends Bindings {
   @override
@@ -32,6 +33,11 @@ class InitialBinding extends Bindings {
     // UseCases
     Get.lazyPut<GetUserDataUseCase>(
       () => GetUserDataUseCase(Get.find<UserRepository>()),
+    );
+
+    // Controllers
+    Get.lazyPut<SplashController>(
+      () => SplashController(Get.find<GetUserDataUseCase>()),
     );
   }
 }

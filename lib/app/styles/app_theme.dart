@@ -41,7 +41,14 @@ class AppTheme {
           secondary: AppColor.accent,
         ),
         textTheme: GoogleFonts.interTextTheme(
-          Theme.of(context).textTheme,
+          Theme.of(context).textTheme.copyWith(
+                bodyLarge: const TextStyle(color: Colors.white),
+                bodyMedium: const TextStyle(color: Colors.white),
+                bodySmall: const TextStyle(color: Colors.white),
+                titleLarge: const TextStyle(color: Colors.white),
+                titleMedium: const TextStyle(color: Colors.white),
+                titleSmall: const TextStyle(color: Colors.white),
+              ),
         ),
         inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),

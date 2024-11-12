@@ -14,14 +14,18 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<UserModel?> fetch() async {
-    UserModel? local = await fetchFromLocal();
-    UserModel? remote = await fetchFromRemote();
-    if (remote == null) {
-      return local;
-    }
+    try {
+      UserModel? local = await fetchFromLocal();
+      UserModel? remote = await fetchFromRemote();
+      if (remote == null) {
+        return local;
+      }
 
-    await localDataSource.saveUser(remote);
-    return remote;
+      await localDataSource.saveUser(remote);
+      return remote;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
@@ -31,6 +35,6 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<UserModel?> fetchFromRemote() {
-    return fetchFromRemote();
+    return remoteDataSource.fetchUser();
   }
 }
