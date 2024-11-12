@@ -14,13 +14,14 @@ class SplashController extends GetxController
   late AnimationController animationController;
 
   final GetUserDataUseCase _getUserDataUseCase;
-  final TokenDataUseCase tokenDataUseCase;
+  final TokenDataUseCase _tokenDataUseCase;
   final ApiServiceDio _dio = Get.find();
 
   SplashController({
     required GetUserDataUseCase getUserDataUseCase,
-    required this.tokenDataUseCase,
-  }) : _getUserDataUseCase = getUserDataUseCase;
+    required TokenDataUseCase tokenDataUseCase,
+  })  : _tokenDataUseCase = tokenDataUseCase,
+        _getUserDataUseCase = getUserDataUseCase;
 
   @override
   void onInit() {
@@ -80,7 +81,7 @@ class SplashController extends GetxController
   }
 
   Future<void> _configToken() async {
-    _token.value = await tokenDataUseCase.fetch();
+    _token.value = await _tokenDataUseCase.fetch();
     if (_token.value != null) {
       _dio.setToken(_token.value!);
     }
