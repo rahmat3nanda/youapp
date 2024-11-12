@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:youapp/app/constants/app_log.dart';
 import 'package:youapp/data/datasources/api_service.dart';
+import 'package:youapp/data/datasources/sp_data.dart';
 
 class ApiServiceDio extends ApiService {
   late Dio _dio;
@@ -18,10 +19,12 @@ class ApiServiceDio extends ApiService {
             "Content-Type": "application/json",
           },
     );
+    _loadToken();
     _dio.interceptors.add(
       InterceptorsWrapper(
           onRequest: (RequestOptions o, RequestInterceptorHandler h) {
         AppLog.print("URL request : ${o.uri}");
+        AppLog.print("URL request : ${o.headers}");
         return h.next(o);
       }, onResponse: (Response r, ResponseInterceptorHandler h) {
         return h.next(r);
@@ -32,7 +35,14 @@ class ApiServiceDio extends ApiService {
     );
   }
 
-  void setToken(String token) {
+  void _loadToken() async {
+    String? token = await SPData.load<String>("token");
+    if (token != null) {
+      setToken(token);
+    }
+  }
+
+  void setToken(String? token) {
     _dio.options.headers["x-access-token"] = token;
   }
 
