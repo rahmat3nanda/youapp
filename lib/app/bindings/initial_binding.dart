@@ -9,6 +9,7 @@ import 'package:youapp/domain/repositories/token_repository.dart';
 import 'package:youapp/domain/repositories/user_repository.dart';
 import 'package:youapp/domain/usecases/get_user_usecase.dart';
 import 'package:youapp/app/configs/app_config.dart';
+import 'package:youapp/domain/usecases/token_data_use_case.dart';
 import 'package:youapp/presentation/controllers/splash_controller.dart';
 
 class InitialBinding extends Bindings {
@@ -44,10 +45,16 @@ class InitialBinding extends Bindings {
     Get.lazyPut<GetUserDataUseCase>(
       () => GetUserDataUseCase(Get.find<UserRepository>()),
     );
+    Get.lazyPut<TokenDataUseCase>(
+      () => TokenDataUseCase(Get.find<TokenRepository>()),
+    );
 
     // Controllers
     Get.lazyPut<SplashController>(
-      () => SplashController(Get.find<GetUserDataUseCase>()),
+      () => SplashController(
+        getUserDataUseCase: Get.find<GetUserDataUseCase>(),
+        tokenDataUseCase: Get.find<TokenDataUseCase>(),
+      ),
     );
   }
 }
