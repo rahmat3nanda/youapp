@@ -21,8 +21,20 @@ class AuthRemoteDataSource {
         },
       );
 
-      return response.data["access_token"];
+      String? token = response.data["access_token"];
+      if (token != null) {
+        return token;
+      }
+
+      throw ResponseModel(
+        code: response.statusCode,
+        success: false,
+        message: response.data["message"],
+      );
     } catch (e) {
+      if (e is ResponseModel) {
+        rethrow;
+      }
       throw ErrorMapper.dio(e);
     }
   }
