@@ -22,8 +22,9 @@ class ErrorMapper {
           if (data != null) {
             if (data["message"] != null) {
               if (data["message"] is String) {
-                response.code = e.response?.statusCode ?? 0;
                 response.message = data["message"];
+              } else if (data["message"] is List) {
+                response.message = (data["message"] as List).join(",");
               } else {
                 response = ResponseModel.fromJson(data);
               }
