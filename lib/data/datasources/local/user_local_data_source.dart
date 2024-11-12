@@ -13,7 +13,11 @@ class UserLocalDataSource {
     if (s == null) {
       return null;
     }
-    
+
     return UserModel.fromJson(jsonDecode(s));
+  }
+
+  Future<String?> fetchToken() async {
+    return SPData.load<String>("token");
   }
 }

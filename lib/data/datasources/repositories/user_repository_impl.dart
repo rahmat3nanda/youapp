@@ -42,4 +42,9 @@ class UserRepositoryImpl implements UserRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<String?> fetchToken() {
+    return localDataSource.fetchToken();
+  }
 }

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:youapp/app/constants/app_log.dart';
+import 'package:youapp/data/datasources/api_service_dio.dart';
 import 'package:youapp/data/models/user_model.dart';
 import 'package:youapp/domain/usecases/get_user_usecase.dart';
 
 class SplashController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  Rx<UserModel?> user = Rx<UserModel?>(null);
-  RxBool isLoading = false.obs;
+  final Rx<UserModel?> _user = Rx<UserModel?>(null);
+  final RxBool _isLoading = false.obs;
+  final Rx<String?> _token = Rx<String?>(null);
+
   late AnimationController animationController;
 
   final GetUserDataUseCase getUserDataUseCase;
+  final ApiServiceDio _dio = Get.find();
 
   SplashController(this.getUserDataUseCase);
 
@@ -31,32 +34,46 @@ class SplashController extends GetxController
 
     // Listen for animation completion
     animationController.addStatusListener((status) async {
-      if (status == AnimationStatus.completed && !isLoading.value) {
+      if (status == AnimationStatus.completed && !_isLoading.value) {
         // Delay slightly after animation to ensure readiness
         await Future.delayed(const Duration(milliseconds: 500));
-        _navigateToLogin();
+        _navigate();
       }
     });
 
     // React to changes in `isLoading`
-    ever(isLoading, (bool loading) {
+    ever(_isLoading, (bool loading) {
       if (!loading && animationController.isCompleted) {
-        _navigateToLogin();
+        _navigate();
       }
     });
   }
 
-  void _navigateToLogin() {
-    AppLog.print("Routing to Login");
+  void _navigate() {
+    if (_token.value != null && _user.value == null) {
+      // TODO: to login
+      return;
+    }
+
+    // TODO: to dashboard
   }
 
   Future<void> fetchUserData() async {
-    isLoading.value = true;
+    _isLoading.value = true;
     try {
-      user.value = await getUserDataUseCase.executeLocal();
-      isLoading.value = false;
+      _user.value = await getUserDataUseCase.executeLocal();
+      await configToken();
     } catch (e) {
-      isLoading.value = false;
+      _isLoading.value = false;
     }
+  }
+
+  Future<void> configToken() async {
+    _token.value = await getUserDataUseCase.executeToken();
+    if (_token.value != null) {
+      _dio.setToken(_token.value!);
+    }
+
+    _isLoading.value = false;
   }
 }
