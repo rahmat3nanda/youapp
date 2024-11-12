@@ -54,6 +54,12 @@ class SplashController extends GetxController
     });
   }
 
+  @override
+  void onClose() {
+    animationController.dispose();
+    super.onClose();
+  }
+
   void _navigate() {
     if (_token.value != null && _user.value == null) {
       // TODO: to login
