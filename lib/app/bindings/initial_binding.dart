@@ -14,6 +14,7 @@ import 'package:youapp/domain/usecases/auth_use_case.dart';
 import 'package:youapp/domain/usecases/get_user_usecase.dart';
 import 'package:youapp/app/configs/app_config.dart';
 import 'package:youapp/domain/usecases/token_data_use_case.dart';
+import 'package:youapp/presentation/controllers/login_controller.dart';
 import 'package:youapp/presentation/controllers/splash_controller.dart';
 
 class InitialBinding extends Bindings {
@@ -66,6 +67,13 @@ class InitialBinding extends Bindings {
     // Controllers
     Get.lazyPut<SplashController>(
       () => SplashController(
+        getUserDataUseCase: Get.find<GetUserDataUseCase>(),
+        tokenDataUseCase: Get.find<TokenDataUseCase>(),
+      ),
+    );
+    Get.lazyPut<LoginController>(
+      () => LoginController(
+        authUseCase: Get.find<AuthUseCase>(),
         getUserDataUseCase: Get.find<GetUserDataUseCase>(),
         tokenDataUseCase: Get.find<TokenDataUseCase>(),
       ),

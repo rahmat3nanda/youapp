@@ -62,12 +62,12 @@ class SplashController extends GetxController
   }
 
   void _navigate() {
-    if (_token.value != null && _user.value == null) {
-      // TODO: to login
+    if (_token.value != null && _user.value != null) {
+      // TODO: to dashboard
       return;
     }
 
-    // TODO: to dashboard
+    Get.offNamed("/login");
   }
 
   Future<void> fetchUserData() async {
