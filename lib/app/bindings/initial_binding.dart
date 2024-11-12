@@ -2,11 +2,15 @@ import 'package:get/get.dart';
 import 'package:youapp/data/datasources/api_service_dio.dart';
 import 'package:youapp/data/datasources/local/token_local_data_source.dart';
 import 'package:youapp/data/datasources/local/user_local_data_source.dart';
+import 'package:youapp/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:youapp/data/datasources/remote/user_remote_data_source.dart';
+import 'package:youapp/data/datasources/repositories/auth_repository_impl.dart';
 import 'package:youapp/data/datasources/repositories/token_repository_impl.dart';
 import 'package:youapp/data/datasources/repositories/user_repository_impl.dart';
+import 'package:youapp/domain/repositories/auth_repository.dart';
 import 'package:youapp/domain/repositories/token_repository.dart';
 import 'package:youapp/domain/repositories/user_repository.dart';
+import 'package:youapp/domain/usecases/auth_use_case.dart';
 import 'package:youapp/domain/usecases/get_user_usecase.dart';
 import 'package:youapp/app/configs/app_config.dart';
 import 'package:youapp/domain/usecases/token_data_use_case.dart';
@@ -25,6 +29,7 @@ class InitialBinding extends Bindings {
     Get.lazyPut<UserLocalDataSource>(() => UserLocalDataSource());
     Get.lazyPut<UserRemoteDataSource>(() => UserRemoteDataSource());
     Get.lazyPut<TokenLocalDataSource>(() => TokenLocalDataSource());
+    Get.lazyPut<AuthRemoteDataSource>(() => AuthRemoteDataSource());
 
     // Repositories
     Get.lazyPut<UserRepository>(
@@ -40,6 +45,12 @@ class InitialBinding extends Bindings {
       ),
       fenix: true,
     );
+    Get.lazyPut<AuthRepository>(
+      () => AuthRepositoryImpl(
+        remoteDataSource: Get.find<AuthRemoteDataSource>(),
+      ),
+      fenix: true,
+    );
 
     // UseCases
     Get.lazyPut<GetUserDataUseCase>(
@@ -47,6 +58,9 @@ class InitialBinding extends Bindings {
     );
     Get.lazyPut<TokenDataUseCase>(
       () => TokenDataUseCase(Get.find<TokenRepository>()),
+    );
+    Get.lazyPut<AuthUseCase>(
+      () => AuthUseCase(Get.find<AuthRepository>()),
     );
 
     // Controllers
