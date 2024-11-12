@@ -13,7 +13,7 @@ class AppTheme {
           titleTextStyle: GoogleFonts.inter(
             fontSize: 24,
             fontWeight: FontWeight.w600,
-            color: AppColor.primary,
+            color: Colors.white,
           ),
         ),
         cardTheme: const CardTheme(surfaceTintColor: Colors.transparent),
@@ -52,28 +52,32 @@ class AppTheme {
         ),
         inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
-          hintStyle: const TextStyle(fontWeight: FontWeight.w500),
-          fillColor: Colors.white,
+          hintStyle: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 13,
+            color: Colors.white.withOpacity(0.4),
+          ),
+          fillColor: AppColor.formField,
           filled: true,
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
-            borderSide: const BorderSide(color: Color(0xFFD0D7DE)),
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
+            borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(color: Colors.red),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
+            borderRadius: BorderRadius.circular(8),
             borderSide: BorderSide(color: Colors.red.shade400),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
-            borderSide: const BorderSide(width: 1, color: Color(0xFFD0D7DE)),
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(width: 1, color: Colors.transparent),
           ),
           disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4.0),
-            borderSide: const BorderSide(width: 1, color: Color(0xFFD0D7DE)),
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(width: 1, color: Colors.grey),
           ),
         ),
         textSelectionTheme: TextSelectionThemeData(
