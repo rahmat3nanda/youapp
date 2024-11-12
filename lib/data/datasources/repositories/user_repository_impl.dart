@@ -21,7 +21,6 @@ class UserRepositoryImpl implements UserRepository {
         return local;
       }
 
-      await localDataSource.saveUser(remote);
       return remote;
     } catch (e) {
       rethrow;
@@ -34,7 +33,13 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<UserModel?> fetchFromRemote() {
-    return remoteDataSource.fetchUser();
+  Future<UserModel?> fetchFromRemote() async {
+    try {
+      UserModel data = await remoteDataSource.fetchUser();
+      await localDataSource.saveUser(data);
+      return data;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

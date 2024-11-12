@@ -7,7 +7,7 @@ import 'package:dio/dio.dart' as d;
 class UserRemoteDataSource {
   final ApiServiceDio _dio = Get.find();
 
-  Future<UserModel?> fetchUser() async {
+  Future<UserModel> fetchUser() async {
     try {
       d.Response response = await _dio.get(url: "getProfile");
       return UserModel.fromJson(response.data["data"]);
