@@ -15,4 +15,9 @@ class TokenRepositoryImpl extends TokenRepository {
   Future<void> store(String token) async {
     await localDataSource.store(token);
   }
+
+  @override
+  Future<void> remove() async {
+    await localDataSource.remove();
+  }
 }

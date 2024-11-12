@@ -8,4 +8,8 @@ class TokenLocalDataSource {
   Future<void> store(String token) async {
     await SPData.save<String>("token", token);
   }
+
+  Future<void> remove() async {
+    await SPData.remove("token");
+  }
 }

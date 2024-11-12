@@ -24,6 +24,15 @@ class SPData {
     }
   }
 
+  static Future remove(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      return await prefs.remove(key);
+    } catch (e) {
+      return e;
+    }
+  }
+
   static Future<bool> reset() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
