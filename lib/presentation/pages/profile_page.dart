@@ -61,7 +61,7 @@ class ProfilePage extends StatelessWidget {
                           bottom: 16,
                           left: 12,
                           child: Text(
-                            d == null ? "" : "@${d.username ?? ""}",
+                            d == null ? "" : "@${d.username ?? ""},",
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
