@@ -4,14 +4,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 import 'package:youapp/app/styles/app_color.dart';
-import 'package:youapp/presentation/controllers/interest_edit_controller.dart';
+import 'package:youapp/presentation/controllers/profile_edit_interest_controller.dart';
 import 'package:youapp/presentation/widgets/app_scafold.dart';
 import 'package:youapp/presentation/widgets/loading_overlay.dart';
 
-class InterestEditPage extends StatelessWidget {
-  InterestEditPage({super.key});
+class ProfileEditInterestPage extends StatelessWidget {
+  ProfileEditInterestPage({super.key});
 
-  final controller = Get.find<InterestEditController>();
+  final controller = Get.find<ProfileEditInterestController>();
 
   @override
   Widget build(BuildContext context) {

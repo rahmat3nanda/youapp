@@ -6,7 +6,7 @@ import 'package:youapp/data/models/response_model.dart';
 import 'package:youapp/data/models/user_model.dart';
 import 'package:youapp/domain/usecases/user_use_case.dart';
 
-class InterestEditController extends GetxController {
+class ProfileEditInterestController extends GetxController {
   final UserUseCase _userUseCase;
 
   final StringTagController tagController = StringTagController();
@@ -14,7 +14,7 @@ class InterestEditController extends GetxController {
 
   final RxBool isLoading = false.obs;
 
-  InterestEditController({required UserUseCase userUseCase})
+  ProfileEditInterestController({required UserUseCase userUseCase})
       : _userUseCase = userUseCase;
 
   @override

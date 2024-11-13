@@ -4,9 +4,9 @@ import 'package:youapp/data/datasources/remote/user_remote_data_source.dart';
 import 'package:youapp/data/datasources/repositories/user_repository_impl.dart';
 import 'package:youapp/domain/repositories/user_repository.dart';
 import 'package:youapp/domain/usecases/user_use_case.dart';
-import 'package:youapp/presentation/controllers/interest_edit_controller.dart';
+import 'package:youapp/presentation/controllers/profile_edit_interest_controller.dart';
 
-class InterestEditBinding extends Bindings {
+class ProfileEditInterestBinding extends Bindings {
   @override
   void dependencies() {
     // DataSources
@@ -28,8 +28,8 @@ class InterestEditBinding extends Bindings {
     );
 
     // Controller
-    Get.lazyPut<InterestEditController>(
-      () => InterestEditController(userUseCase: Get.find<UserUseCase>()),
+    Get.lazyPut<ProfileEditInterestController>(
+      () => ProfileEditInterestController(userUseCase: Get.find<UserUseCase>()),
       fenix: true,
     );
   }
