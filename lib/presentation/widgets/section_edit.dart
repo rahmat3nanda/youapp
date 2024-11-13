@@ -5,12 +5,14 @@ import 'package:youapp/app/styles/app_color.dart';
 
 class SectionEdit extends StatelessWidget {
   final String title;
+  final Widget? action;
   final Widget child;
   final Function()? onTap;
 
   const SectionEdit({
     super.key,
     required this.title,
+    this.action,
     required this.child,
     this.onTap,
   });
@@ -47,13 +49,14 @@ class SectionEdit extends StatelessWidget {
         Positioned(
           top: 0,
           right: 2,
-          child: IconButton(
-            onPressed: onTap,
-            icon: SvgPicture.asset(
-              AppIcon.edit,
-              fit: BoxFit.cover,
-            ),
-          ),
+          child: action ??
+              IconButton(
+                onPressed: onTap,
+                icon: SvgPicture.asset(
+                  AppIcon.edit,
+                  fit: BoxFit.cover,
+                ),
+              ),
         ),
       ],
     );

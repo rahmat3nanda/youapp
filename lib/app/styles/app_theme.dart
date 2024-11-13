@@ -77,7 +77,7 @@ class AppTheme {
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(width: 1, color: Colors.grey),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
         ),
         textSelectionTheme: TextSelectionThemeData(
