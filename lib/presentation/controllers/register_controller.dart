@@ -60,7 +60,7 @@ class RegisterController extends GetxController {
     Get.focusScope?.unfocus();
     if (formKey.currentState?.validate() ?? false) {
       String email = emailController.text.trim();
-      String username = emailController.text.trim();
+      String username = usernameController.text.trim();
       String password = passwordController.text;
       String passwordConfirm = passwordConfirmController.text;
 
