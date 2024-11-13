@@ -1,12 +1,12 @@
 class UserModel {
   final String? email;
   final String? username;
-  final String? name;
-  final String? birthday;
+  String? name;
+  String? birthday;
   final String? horoscope;
   final String? zodiac;
-  final int? height;
-  final int? weight;
+  int? height;
+  int? weight;
   List<String>? interests;
 
   UserModel({

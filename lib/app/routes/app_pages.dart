@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
+import 'package:youapp/app/bindings/profile_edit_about_binding.dart';
 import 'package:youapp/app/bindings/profile_edit_interest_binding.dart';
 import 'package:youapp/app/bindings/login_binding.dart';
 import 'package:youapp/app/bindings/profile_binding.dart';
 import 'package:youapp/app/bindings/register_binding.dart';
+import 'package:youapp/presentation/pages/profile_edit_about_page.dart';
 import 'package:youapp/presentation/pages/profile_edit_interest_page.dart';
 import 'package:youapp/presentation/pages/login_page.dart';
 import 'package:youapp/presentation/pages/profile_page.dart';
@@ -34,6 +36,11 @@ class AppPages {
       name: '/profile/edit/interest',
       page: () => ProfileEditInterestPage(),
       binding: ProfileEditInterestBinding(),
+    ),
+    GetPage(
+      name: '/profile/edit/about',
+      page: () => ProfileEditAboutPage(),
+      binding: ProfileEditAboutBinding(),
     ),
   ];
 }

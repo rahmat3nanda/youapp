@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:youapp/app/helpers/error_mapper.dart';
-import 'package:youapp/app/styles/app_color.dart';
 import 'package:youapp/data/datasources/api_service_dio.dart';
 import 'package:youapp/data/models/response_model.dart';
 import 'package:youapp/data/models/user_model.dart';
@@ -45,22 +44,9 @@ class ProfileController extends GetxController {
     }
   }
 
-  void editAvatar() {
-    Get.snackbar(
-      "Coming Soon!",
-      "Feature under development",
-      colorText: Colors.white,
-      backgroundColor: AppColor.primaryLight,
-    );
-  }
-
-  void editAbout() {
-    Get.snackbar(
-      "Coming Soon!",
-      "Feature under development",
-      colorText: Colors.white,
-      backgroundColor: AppColor.primaryLight,
-    );
+  void editAbout() async {
+    await Get.toNamed("/profile/edit/about");
+    fetchUser();
   }
 
   void editInterest() async {
