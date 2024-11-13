@@ -212,7 +212,10 @@ class ProfileEditAboutPage extends StatelessWidget {
               controller: controller.heightController,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.end,
-              decoration: const InputDecoration(hintText: "Add height"),
+              decoration: const InputDecoration(
+                hintText: "Add height",
+                suffix: Text("cm"),
+              ),
             ),
           ),
           const SizedBox(height: 12),
@@ -224,7 +227,10 @@ class ProfileEditAboutPage extends StatelessWidget {
               controller: controller.weightController,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.end,
-              decoration: const InputDecoration(hintText: "Add weight"),
+              decoration: const InputDecoration(
+                hintText: "Add weight",
+                suffix: Text("kg"),
+              ),
             ),
           ),
         ],

@@ -48,4 +48,13 @@ class UserModel {
             ? null
             : List<dynamic>.from(interests!.map((x) => x)),
       };
+
+  bool isAboutEmpty() {
+    return name == null &&
+        birthday == null &&
+        horoscope == null &&
+        zodiac == null &&
+        height == null &&
+        weight == null;
+  }
 }
