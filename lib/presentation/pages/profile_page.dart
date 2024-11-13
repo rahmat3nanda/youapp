@@ -8,6 +8,7 @@ import 'package:youapp/app/styles/app_color.dart';
 import 'package:youapp/data/models/user_model.dart';
 import 'package:youapp/presentation/controllers/profile_controller.dart';
 import 'package:youapp/presentation/widgets/loading_overlay.dart';
+import 'package:youapp/presentation/widgets/section_edit.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
@@ -68,29 +69,35 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
-                          top: 0,
-                          right: 2,
-                          child: IconButton(
-                            onPressed: controller.editAvatar,
-                            icon: SvgPicture.asset(AppIcon.edit),
-                          ),
-                        ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 25),
-                  _infoView(
+                  SectionEdit(
                     title: "About",
-                    value: "Add in your your to help others know you better",
                     onTap: controller.editAbout,
+                    child: Text(
+                      "Add in your your to help others know you better",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Colors.white.withOpacity(0.5),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 18),
-                  _infoView(
+                  SectionEdit(
                     title: "Interest",
-                    value: d?.interests?.joinOrNull(", ") ??
-                        "Add in your interest to find a better match",
                     onTap: controller.editInterest,
+                    child: Text(
+                      d?.interests?.joinOrNull(", ") ??
+                          "Add in your interest to find a better match",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                        color: Colors.white.withOpacity(0.5),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -98,60 +105,6 @@ class ProfilePage extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  Widget _infoView({
-    required String title,
-    required String value,
-    Function()? onTap,
-  }) {
-    return Stack(
-      children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(
-            vertical: 12,
-            horizontal: 24,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: Color.lerp(AppColor.primary, Colors.white, 0.025),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14,
-                ),
-              ),
-              const SizedBox(height: 32),
-              Text(
-                value,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                  color: Colors.white.withOpacity(0.5),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          top: 0,
-          right: 2,
-          child: IconButton(
-            onPressed: onTap,
-            icon: SvgPicture.asset(
-              AppIcon.edit,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
