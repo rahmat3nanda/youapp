@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as g;
 import 'package:youapp/app/constants/app_log.dart';
 import 'package:youapp/data/datasources/api_service.dart';
 import 'package:youapp/data/datasources/sp_data.dart';
@@ -30,6 +31,22 @@ class ApiServiceDio extends ApiService {
         return h.next(r);
       }, onError: (DioException e, ErrorInterceptorHandler h) async {
         AppLog.print("URL error : ${e.requestOptions.path}");
+        if (e.response?.statusCode == 500 &&
+            (e.message?.contains("validateStatus") ?? false)) {
+          g.Get.offNamed("/login");
+          await SPData.remove("token");
+          await SPData.remove("user");
+          return h.next(
+            DioException(
+              requestOptions: e.requestOptions,
+              response: Response(
+                requestOptions: e.requestOptions,
+                statusCode: 401,
+                statusMessage: "Token Expired. Please login again",
+              ),
+            ),
+          );
+        }
         return h.next(e);
       }),
     );
