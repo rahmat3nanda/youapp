@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:youapp/app/constants/app_icon.dart';
 import 'package:youapp/app/helpers/string_join.dart';
 import 'package:youapp/app/styles/app_color.dart';
 import 'package:youapp/data/models/user_model.dart';
@@ -27,7 +29,7 @@ class ProfilePage extends StatelessWidget {
             actions: [
               IconButton(
                 onPressed: controller.openMenu,
-                icon: const Icon(Icons.more_horiz),
+                icon: SvgPicture.asset(AppIcon.more),
               ),
             ],
           ),
@@ -66,6 +68,14 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                         ),
+                        Positioned(
+                          top: 0,
+                          right: 2,
+                          child: IconButton(
+                            onPressed: controller.editAvatar,
+                            icon: SvgPicture.asset(AppIcon.edit),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -73,12 +83,14 @@ class ProfilePage extends StatelessWidget {
                   _infoView(
                     title: "About",
                     value: "Add in your your to help others know you better",
+                    onTap: controller.editAbout,
                   ),
                   const SizedBox(height: 18),
                   _infoView(
                     title: "Interest",
                     value: d?.interests?.joinOrNull(", ") ??
                         "Add in your interest to find a better match",
+                    onTap: controller.editInterest,
                   ),
                 ],
               ),
@@ -94,37 +106,52 @@ class ProfilePage extends StatelessWidget {
     required String value,
     Function()? onTap,
   }) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(
-        vertical: 12,
-        horizontal: 24,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Color.lerp(AppColor.primary, Colors.white, 0.025),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 14,
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(
+            vertical: 12,
+            horizontal: 24,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: Color.lerp(AppColor.primary, Colors.white, 0.025),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 32),
+              Text(
+                value,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: Colors.white.withOpacity(0.5),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          top: 0,
+          right: 2,
+          child: IconButton(
+            onPressed: onTap,
+            icon: SvgPicture.asset(
+              AppIcon.edit,
+              fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(height: 32),
-          Text(
-            value,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-              color: Colors.white.withOpacity(0.5),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
