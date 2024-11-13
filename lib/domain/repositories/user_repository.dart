@@ -7,5 +7,7 @@ abstract class UserRepository {
 
   Future<UserModel?> fetchFromRemote();
 
+  Future<UserModel> update(UserModel data);
+
   Future<void> destroy();
 }

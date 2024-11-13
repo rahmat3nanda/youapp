@@ -35,9 +35,20 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<UserModel?> fetchFromRemote() async {
     try {
-      UserModel data = await remoteDataSource.fetchUser();
+      UserModel data = await remoteDataSource.fetch();
       await localDataSource.saveUser(data);
       return data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<UserModel> update(UserModel data) async {
+    try {
+      UserModel resData = await remoteDataSource.update(data);
+      await localDataSource.saveUser(resData);
+      return resData;
     } catch (e) {
       rethrow;
     }

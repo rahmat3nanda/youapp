@@ -7,7 +7,7 @@ class UserModel {
   final String? zodiac;
   final int? height;
   final int? weight;
-  final List<String>? interests;
+  List<String>? interests;
 
   UserModel({
     this.email,

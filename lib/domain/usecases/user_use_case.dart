@@ -30,6 +30,14 @@ class UserUseCase {
     }
   }
 
+  Future<UserModel> update(UserModel data) async {
+    try {
+      return await userRepository.update(data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<void> destroy() async {
     await userRepository.destroy();
   }
