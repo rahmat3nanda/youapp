@@ -85,6 +85,27 @@ class ApiServiceDio extends ApiService {
   }
 
   @override
+  Future put({
+    required String url,
+    required dynamic body,
+    Map<String, dynamic>? param,
+  }) async {
+    try {
+      return await _dio.put(
+        url,
+        queryParameters: param,
+        data: body,
+      );
+    } on TimeoutException catch (e) {
+      return Future.error(e);
+    } on SocketException catch (e) {
+      return Future.error(e);
+    } on DioException catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  @override
   Future get({
     required String url,
     Map<String, dynamic>? param,

@@ -11,6 +11,12 @@ abstract class ApiService {
     Map<String, dynamic>? param,
   });
 
+  Future put({
+    required String url,
+    required dynamic body,
+    Map<String, dynamic>? param,
+  });
+
   Future get({
     required String url,
     Map<String, dynamic>? param,
