@@ -63,17 +63,16 @@ class ProfileController extends GetxController {
     );
   }
 
-  void editInterest() {
-    Get.snackbar(
-      "Coming Soon!",
-      "Feature under development",
-      colorText: Colors.white,
-      backgroundColor: AppColor.primaryLight,
-    );
+  void editInterest() async {
+    await Get.toNamed("/profile/edit/interest");
+    fetchUser();
   }
 
   Future<void> fetchUser() async {
-    isLoading.value = true;
+    if (user.value == null) {
+      isLoading.value = true;
+    }
+
     try {
       user.value = await _userUseCase.fetch();
       isLoading.value = false;
